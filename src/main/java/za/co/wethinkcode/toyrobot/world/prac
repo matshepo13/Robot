@@ -1,0 +1,42 @@
+@Override
+    public boolean blocksPath(Position a, Position b) {
+        if (a.getY() == b.getX()) {
+            for (int yRange = a.getY(); yRange <= b.getY() + getSize() - 1; yRange++) {
+                Position position = new Position(a.getX(), yRange);
+                if (blocksPosition(position)) {
+                    return true;
+                }
+            }
+
+        }
+
+        if (a.getY() == b.getY()) {
+            for (int xRange = a.getX(); xRange <= b.getX() + getSize() - 1; xRange++) {
+                Position position = new Position(xRange, a.getY());
+                if (blocksPosition(position)) {
+                    return true;
+                }
+            }
+        }
+
+
+        return false;
+    }
+}
+
+this code is failing these test:
+ @Test
+    void testBlockPath(){
+        Obstacle obstacle = new SquareObstacle(1,1);
+        assertTrue(obstacle.blocksPath(new Position(1,0), new Position(1,50)));
+        assertTrue(obstacle.blocksPath(new Position(2,-10), new Position(2, 100)));
+        assertTrue(obstacle.blocksPath(new Position(-10,5), new Position(20, 5)));
+        assertFalse(obstacle.blocksPath(new Position(0,1), new Position(0, 100)));
+        assertFalse(obstacle.blocksPath(new Position(1,6), new Position(1, 100)));
+
+    }
+specifically this part:
+assertTrue(obstacle.blocksPath(new Position(1,0), new Position(1,50)));
+
+please fix it
+}
